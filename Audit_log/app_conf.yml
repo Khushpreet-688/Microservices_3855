@@ -1,0 +1,4 @@
+events:
+  hostname: kafka-acit3855.canadacentral.cloudapp.azure.com
+  port: 9092
+  topic: events

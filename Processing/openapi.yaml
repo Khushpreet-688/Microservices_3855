@@ -1,0 +1,71 @@
+openapi: 3.0.0
+servers: []
+info:
+  description: This API receives employee clock in and clock out requests
+  version: "1.0.0"
+  title: Employee Reporting API
+  contact:
+    email: ksidhu123@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: clocking_system
+    description: Operations available on clocking systems
+
+paths:
+  /reporting/stats:
+    get:
+      summary: Gets the event stats
+      operationId: app.get_stats
+      description: Gets clock in and clock out processsed statistics
+      responses:
+        '200':
+          description: Successfully returned a list of processed statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/ReportingStats'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                    message:
+                      type: string
+
+
+components:
+  schemas:
+    ReportingStats:
+      type: object
+      required:
+      - num_clock_ins
+      - num_clock_outs
+      - avg_num_hours_worked
+      - max_late_arrival
+      - last_updated
+      properties:
+        num_clock_ins:
+          type: integer 
+          example: 50000
+        num_clock_outs:
+          type: integer
+          example: 50000
+        avg_num_hours_worked:
+          type: integer
+          example: 8
+        max_late_arrival:
+          type: integer
+          example: 5
+        last_updated:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+
+
+      

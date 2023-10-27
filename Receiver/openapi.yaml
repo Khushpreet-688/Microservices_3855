@@ -1,0 +1,115 @@
+openapi: 3.0.0
+servers: []
+info:
+  description: This API receives employee clock in and clock out requests
+  version: "1.0.0"
+  title: Employee Reporting API
+  contact:
+    email: ksidhu123@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: clocking_system
+    description: Operations available on clocking systems
+paths:
+  /reporting/clock-in:
+    post:
+      tags:
+        - clocking_system
+      summary: records the clock-in data of the employee
+      operationId: app.clock_in
+      description: Adds the check-in data into the app
+      
+      responses:
+        '201':
+            description: item created
+        '400':
+            description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/checkin'
+        description: Check-in item to add
+        
+        
+  /reporting/clock-out:
+    post:
+      tags:
+        - clocking_system
+      summary: records clock-out data of the employee
+      operationId: app.clock_out
+      description: Adds check out data into the app
+      responses:
+        '201':
+          description: item created
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/checkout'
+        description: Check-out item to add
+components:
+  schemas:
+    checkin:
+      type: object
+      required:
+        - emp_num
+        - emp_name
+        - store_code
+        - num_hours_scheduled
+        - timestamp
+        - late_arrival
+      properties:
+        emp_num:
+          type: string
+          example: RB6805
+        emp_name:
+          type: string
+          example: Amy
+        store_code:
+          type: string
+          example: RB
+        num_hours_scheduled:
+          type: number
+          example: 8
+        timestamp:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+        late_arrival:
+          type: number
+          example: 0.5
+        
+    checkout:
+      type: object
+      required:
+        - emp_num
+        - emp_name
+        - store_code
+        - num_hours_worked
+        - timestamp
+        - overtime_hours
+      properties:
+        emp_num:
+          type: string
+          example: PK3555
+        emp_name:
+          type: string
+          example: Amy
+        store_code:
+          type: string
+          example: PK
+        num_hours_worked:
+          type: number
+          example: 9
+        timestamp:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+        overtime_hours: 
+          type: number
+          example: 1.0

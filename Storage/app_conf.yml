@@ -1,0 +1,11 @@
+version: 1
+datastore:
+  user: user
+  password: DB_PASS
+  hostname: kafka-acit3855.canadacentral.cloudapp.azure.com
+  port: 3306
+  db: events
+events:
+  hostname: kafka-acit3855.canadacentral.cloudapp.azure.com
+  port: 9092
+  topic: events

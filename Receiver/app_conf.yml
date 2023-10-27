@@ -1,0 +1,9 @@
+version: 1
+eventstore1:
+ url: http://localhost:8090/reporting/clock-in
+eventstore2:
+ url: http://localhost:8090/reporting/clock-out
+events:
+  hostname: kafka-acit3855.canadacentral.cloudapp.azure.com
+  port: 9092
+  topic: events
