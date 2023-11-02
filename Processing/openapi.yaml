@@ -18,7 +18,7 @@ paths:
     get:
       summary: Gets the event stats
       operationId: app.get_stats
-      description: Gets clock in and clock out processsed statistics
+      description: Gets clock in and clock out processed statistics
       responses:
         '200':
           description: Successfully returned a list of processed statistics
