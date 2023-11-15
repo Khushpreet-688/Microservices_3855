@@ -101,7 +101,7 @@ paths:
       operationId: app.get_clock_out_readings
       description: Gets clock out readings added after a timestamp
       parameters:
-        - name: timestamp
+        - name: start_timestamp
           in: query
           description: Limits the number of items on a page
           schema:
@@ -114,7 +114,7 @@ paths:
           schema:
             type: string
             format: date-time
-            example: 2016-08-29T09:12:33.001Z
+            example: '2016-08-29T09:12:33.001Z'
       responses:
         '200':
           description: Successfully returned a list of clock-out events

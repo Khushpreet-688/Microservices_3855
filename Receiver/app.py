@@ -26,11 +26,12 @@ max_retries = app_config["connection"]["max_retries"]
 sleep_time = app_config["connection"]["sleep_time"]
 
 retry_count = 0
+
 while retry_count < max_retries:
     logger.info(f'Trying to reconnect to Kafka. Retry count: {retry_count}')
     try:
         client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
-        topic = client.topics[str.encode(app_config["events"]["topic"])]
+        TOPIC = client.topics[str.encode(app_config["events"]["topic"])]
         break
     except:
         logger.error("Connection failed. Retrying ...")
@@ -49,7 +50,7 @@ def clock_in(body):
     # response = requests.post(app_config['eventstore1']['url'], json=body, headers=headers)
     # client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
     # topic = client.topics[str.encode(app_config["events"]["topic"])]
-    producer = topic.get_sync_producer()
+    producer = TOPIC.get_sync_producer()
     msg = { "type": "clock_in",
             "datetime" : datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
             "payload": body }
@@ -75,7 +76,7 @@ def clock_out(body):
     #     print(response)
     # client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
     # topic = client.topics[str.encode(app_config["events"]["topic"])]
-    producer = topic.get_sync_producer()
+    producer = TOPIC.get_sync_producer()
     msg = { "type": "clock_out",
             "datetime" : datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
             "payload": body }
@@ -110,3 +111,6 @@ app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 if __name__ == "__main__":
     app.run(port=8080)
+    
+
+    
