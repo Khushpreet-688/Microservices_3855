@@ -38,15 +38,23 @@ paths:
         - devices
       summary: gets new clock-in readings
       operationId: app.get_clock_in_readings
-      description: Gets clock in readings added after a timestamp
+      description: Gets clock in readings added after a timestamp and before end_timestamp
       parameters:
-        - name: timestamp
+        - name: start_timestamp
           in: query
           description: Limits the number of items on a page
           schema:
             type: string
             format: date-time
             example: 2016-08-29T09:12:33.001Z
+        - name: end_timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+
       responses:
         '200':
           description: Successfully returned a list of clock-in events
@@ -100,6 +108,13 @@ paths:
             type: string
             format: date-time
             example: '2016-08-29T09:12:33.001Z'
+        - name: end_timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
       responses:
         '200':
           description: Successfully returned a list of clock-out events

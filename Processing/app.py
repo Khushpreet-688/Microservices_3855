@@ -54,9 +54,9 @@ def populate_stats():
         }
         
 
-    
-    get_response_clock_in = requests.get(f"{app_config['eventstore']['url']}/reporting/clock-in", params={'timestamp': stats['last_updated']})
-    get_response_clock_out = requests.get(f"{app_config['eventstore']['url']}/reporting/clock-out", params={'timestamp': stats['last_updated']})
+    current_timestamp = current_datetime.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+    get_response_clock_in = requests.get(f"{app_config['eventstore']['url']}/reporting/clock-in", params={'start_timestamp': stats['last_updated'], 'end_timestamp': current_timestamp})
+    get_response_clock_out = requests.get(f"{app_config['eventstore']['url']}/reporting/clock-out", params={'start_timestamp': stats['last_updated'], 'end_timestamp': current_timestamp})
     
     if get_response_clock_out.status_code == 200 and get_response_clock_out.status_code == 200:
         clock_in_events = get_response_clock_in.json()

@@ -7,6 +7,7 @@ import yaml
 import logging, logging.config
 import uuid
 from pykafka import KafkaClient
+import time
 # Your functions here
 
 MAX_EVENTS = 10
@@ -21,6 +22,21 @@ with open('log_conf.yml', 'r') as f:
 
 logger = logging.getLogger('basicLogger')
 
+max_retries = app_config["connection"]["max_retries"]
+sleep_time = app_config["connection"]["sleep_time"]
+
+retry_count = 0
+while retry_count < max_retries:
+    logger.info(f'Trying to reconnect to Kafka. Retry count: {retry_count}')
+    try:
+        client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
+        topic = client.topics[str.encode(app_config["events"]["topic"])]
+    except:
+        logger.error("Connection failed. Retrying ...")
+        time.sleep(sleep_time)
+        retry_count += 1
+
+
 def clock_in(body):
     trace_id = str(uuid.uuid4())
     body['trace_id'] = trace_id
@@ -30,8 +46,8 @@ def clock_in(body):
     headers = { "content-type": "application/json"}
 
     # response = requests.post(app_config['eventstore1']['url'], json=body, headers=headers)
-    client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
-    topic = client.topics[str.encode(app_config["events"]["topic"])]
+    # client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
+    # topic = client.topics[str.encode(app_config["events"]["topic"])]
     producer = topic.get_sync_producer()
     msg = { "type": "clock_in",
             "datetime" : datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
@@ -56,8 +72,8 @@ def clock_out(body):
     # response = requests.post(app_config['eventstore2']['url'], json=body, headers=headers)
     # if response.status_code == 201:
     #     print(response)
-    client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
-    topic = client.topics[str.encode(app_config["events"]["topic"])]
+    # client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
+    # topic = client.topics[str.encode(app_config["events"]["topic"])]
     producer = topic.get_sync_producer()
     msg = { "type": "clock_out",
             "datetime" : datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),

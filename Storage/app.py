@@ -5,6 +5,7 @@ import datetime
 # Your functions here
 
 from sqlalchemy import create_engine
+from sqlalchemy import and_
 from sqlalchemy.orm import sessionmaker
 from base import Base
 from clock_in import ClockIn
@@ -19,6 +20,7 @@ from pykafka import KafkaClient
 from pykafka.common import OffsetType
 from threading import Thread
 import os
+import time
 
 MAX_EVENTS = 10
 EVENT_FILE = './events.json'
@@ -84,40 +86,55 @@ def clock_out(body):
     logger.debug(f'Stored event {event} request with the trace id of {body["trace_id"]}')
     return NoContent, 201
 
-def get_clock_in_readings(timestamp):
+def get_clock_in_readings(start_timestamp, end_timestamp):
     """
     Gets new clock in readings after the timestamp
     """
     session = DB_SESSION()
-    timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
-    readings = session.query(ClockIn).filter(ClockIn.date_created >= timestamp_datetime)
+    start_timestamp_datetime = datetime.datetime.strptime(start_timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
+    end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
+    readings = session.query(ClockIn).filter(and_(ClockIn.date_created >= start_timestamp_datetime, ClockIn.date_created < end_timestamp_datetime))
     results_list = []
     for reading in readings:
         results_list.append(reading.to_dict())
     session.close()
-    logger.info(f"Query for Clock in readings after {timestamp} returns {len(results_list)} results")
+    logger.info(f"Query for Clock in readings after {start_timestamp} returns {len(results_list)} results")
     return results_list, 200
 
-def get_clock_out_readings(timestamp):
+def get_clock_out_readings(start_timestamp, end_timestamp):
     """
     Gets new clock out readings after the timestamp
     """
     session = DB_SESSION()
-    timestamp_datetime = datetime.datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S.%fZ')
-    readings = session.query(ClockOut).filter(ClockOut.date_created >= timestamp_datetime)
+    start_timestamp_datetime = datetime.datetime.strptime(start_timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
+    end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
+    readings = session.query(ClockOut).filter(and_(ClockOut.date_created >= start_timestamp_datetime, ClockOut.date_created < end_timestamp_datetime))
     results_list = []
     for reading in readings:
         results_list.append(reading.to_dict())
     session.close()
-    logger.info(f"Query for Clock out readings after {timestamp} returns {len(results_list)} results")
+    logger.info(f"Query for Clock out readings after {start_timestamp} returns {len(results_list)} results")
     return results_list, 200
 
 def process_messages():
     """ Process event messages """
     hostname = "%s:%d" % (app_config["events"]["hostname"],
     app_config["events"]["port"])
-    client = KafkaClient(hosts=hostname)
-    topic = client.topics[str.encode(app_config["events"]["topic"])]
+    
+    max_retries = app_config["connection"]["max_retries"]
+    sleep_time = app_config["connection"]["sleep_time"]
+    
+    retry_count = 0
+    while retry_count < max_retries:
+        logger.info(f'Trying to reconnect to Kafka. Retry count: {retry_count}')
+        try:
+            client = KafkaClient(hosts=hostname)
+            topic = client.topics[str.encode(app_config["events"]["topic"])]
+        except:
+            logger.error("Connection failed. Retrying ...")
+            time.sleep(sleep_time)
+            retry_count += 1
+
     # Create a consume on a consumer group, that only reads new messages
     # (uncommitted messages) when the service re-starts (i.e., it doesn't
     # read all the old messages from the history in the message queue).

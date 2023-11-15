@@ -9,3 +9,6 @@ events:
   hostname: kafka-acit3855.canadacentral.cloudapp.azure.com
   port: 9092
   topic: events
+connection:
+  max_retries: 5
+  sleep_time: 5
