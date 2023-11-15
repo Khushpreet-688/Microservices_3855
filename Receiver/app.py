@@ -22,21 +22,7 @@ with open('log_conf.yml', 'r') as f:
 
 logger = logging.getLogger('basicLogger')
 
-max_retries = app_config["connection"]["max_retries"]
-sleep_time = app_config["connection"]["sleep_time"]
 
-retry_count = 0
-
-while retry_count < max_retries:
-    logger.info(f'Trying to reconnect to Kafka. Retry count: {retry_count}')
-    try:
-        client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
-        TOPIC = client.topics[str.encode(app_config["events"]["topic"])]
-        break
-    except:
-        logger.error("Connection failed. Retrying ...")
-        time.sleep(sleep_time)
-        retry_count += 1
 
 
 def clock_in(body):
@@ -110,6 +96,22 @@ def log_events(body, data_str):
 app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 if __name__ == "__main__":
+    max_retries = app_config["connection"]["max_retries"]
+    sleep_time = app_config["connection"]["sleep_time"]
+
+    retry_count = 0
+
+    while retry_count < max_retries: 
+        try:
+            logger.info(f'Trying to reconnect to Kafka. Retry count: {retry_count}')
+            client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
+            TOPIC = client.topics[str.encode(app_config["events"]["topic"])]
+            break
+        except:
+            logger.error("Connection failed. Retrying ...")
+            time.sleep(sleep_time)
+            retry_count += 1
+            
     app.run(port=8080)
     
 

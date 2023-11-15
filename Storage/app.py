@@ -126,8 +126,8 @@ def process_messages():
     
     retry_count = 0
     while retry_count < max_retries:
-        logger.info(f'Trying to reconnect to Kafka. Retry count: {retry_count}')
         try:
+            logger.info(f'Trying to reconnect to Kafka. Retry count: {retry_count}')
             client = KafkaClient(hosts=hostname)
             topic = client.topics[str.encode(app_config["events"]["topic"])]
             break
