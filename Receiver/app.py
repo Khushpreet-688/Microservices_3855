@@ -31,6 +31,7 @@ while retry_count < max_retries:
     try:
         client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
         topic = client.topics[str.encode(app_config["events"]["topic"])]
+        break
     except:
         logger.error("Connection failed. Retrying ...")
         time.sleep(sleep_time)
