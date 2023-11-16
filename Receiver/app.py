@@ -36,7 +36,7 @@ def clock_in(body):
     # response = requests.post(app_config['eventstore1']['url'], json=body, headers=headers)
     # client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
     # topic = client.topics[str.encode(app_config["events"]["topic"])]
-    producer = TOPIC.get_sync_producer()
+    # producer = TOPIC.get_sync_producer()
     msg = { "type": "clock_in",
             "datetime" : datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
             "payload": body }
@@ -62,7 +62,7 @@ def clock_out(body):
     #     print(response)
     # client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
     # topic = client.topics[str.encode(app_config["events"]["topic"])]
-    producer = TOPIC.get_sync_producer()
+    # producer = TOPIC.get_sync_producer()
     msg = { "type": "clock_out",
             "datetime" : datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
             "payload": body }
@@ -106,6 +106,8 @@ if __name__ == "__main__":
             logger.info(f'Trying to reconnect to Kafka. Retry count: {retry_count}')
             client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
             TOPIC = client.topics[str.encode(app_config["events"]["topic"])]
+            producer = TOPIC.get_sync_producer()
+            logger.info("Connected!")
             break
         except:
             logger.error("Connection failed. Retrying ...")
