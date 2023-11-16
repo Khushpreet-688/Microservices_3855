@@ -10,6 +10,16 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from flask_cors import CORS, cross_origin
 # Your functions here
 
+import os
+if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
+    print("In Test Environment")
+    app_conf_file = "/config/app_conf.yml"
+    log_conf_file = "/config/log_conf.yml"
+else:
+    print("In Dev Environment")
+    app_conf_file = "app_conf.yml"
+    log_conf_file = "log_conf.yml"
+
 MAX_EVENTS = 10
 EVENT_FILE = './events.json'
 
@@ -21,7 +31,8 @@ with open('log_conf.yml', 'r') as f:
     logging.config.dictConfig(log_config)
 
 logger = logging.getLogger('basicLogger')
-
+logger.info("App Conf File: %s" % app_conf_file)
+logger.info("Log Conf File: %s" % log_conf_file)
 
 def get_stats():
     logger.info('Request has started')
