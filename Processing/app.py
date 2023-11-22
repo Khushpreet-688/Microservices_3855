@@ -54,7 +54,7 @@ def populate_stats():
         with open(app_config['datastore']['filename'], 'r') as f:
             stats = json.load(f)
     except FileNotFoundError:
-        #use the default values for the stats
+        #use the default values for the stats 
         stats = {
             'num_clock_ins': 0,
             'num_clock_outs': 0,
@@ -63,6 +63,8 @@ def populate_stats():
             # 'last_updated': current_datetime.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
             'last_updated': '2023-10-17T11:15:00.001Z'
         }
+        with open(app_config['datastore']['filename'], 'w') as f:
+            json.dump(stats, f, indent=4)
         
 
     current_timestamp = current_datetime.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
