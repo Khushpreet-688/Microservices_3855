@@ -47,7 +47,7 @@ logger.info("Log Conf File: %s" % log_conf_file)
 # get password from env variable defined in docker file
 db_pass = os.environ.get(app_config["datastore"]["password"])
 # DB_ENGINE = create_engine("sqlite:///records.sqlite")
-DB_ENGINE = create_engine(f'mysql+pymysql://{app_config["datastore"]["user"]}:{db_pass}@{app_config["datastore"]["hostname"]}:{app_config["datastore"]["port"]}/{app_config["datastore"]["db"]}')
+DB_ENGINE = create_engine(f'mysql+pymysql://{app_config["datastore"]["user"]}:{app_config["datastore"]["password"]}@{app_config["datastore"]["hostname"]}:{app_config["datastore"]["port"]}/{app_config["datastore"]["db"]}')
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
