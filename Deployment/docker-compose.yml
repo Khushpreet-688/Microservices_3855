@@ -52,7 +52,9 @@ services:
   receiver:
     image: receiver
     ports:
-      - "8080:8080"
+      - "8080"
+    networks:
+      - "api.network"
     environment:
       - TARGET_ENV=test
     volumes:
@@ -64,7 +66,9 @@ services:
   storage:
     image: storage
     ports:
-      - "8090:8090"
+      - "8090"
+    networks:
+      - "api.network"
     environment:
       DB_PASS: ""
     environment:
@@ -79,8 +83,9 @@ services:
   processing:
     image: processing
     ports:
-      - "8100:8100"
-    network_mode: "host"
+      - "8100"
+    networks:
+      - "api.network"
     environment:
       - TARGET_ENV=test
     volumes:
@@ -93,7 +98,9 @@ services:
   audit_log:
     image: audit_log
     ports:
-      - "8110:8110"
+      - "8110"
+    networks:
+      - "api.network"
     environment:
       - TARGET_ENV=test
     volumes:
@@ -105,7 +112,9 @@ services:
   dashboard:
     image: dashboard
     ports:
-      - "3000:3000"
+      - "3000"
+    networks:
+      - "api.network"
     depends_on:
       - "processing"
       - "audit_log"
@@ -114,3 +123,5 @@ services:
 volumes:
   my-db:
   processing-db:
+networks:
+  api.network:
