@@ -3,6 +3,7 @@ import './App.css';
 
 import EndpointAudit from './components/EndpointAudit'
 import AppStats from './components/AppStats'
+import AppStatus from './components/AppStatus'
 
 function App() {
 
@@ -17,7 +18,8 @@ function App() {
             <img src={logo} className="App-logo" alt="logo" height="150px" width="400px"/>
             <div>
                 <AppStats/>
-                <h1>Audit Endpoints</h1>
+                <AppStatus/>
+                <h2>Audit Endpoints</h2>
                 {rendered_endpoints}
             </div>
         </div>
