@@ -103,6 +103,8 @@ def populate_stats():
 
     logger.info('Period processing has ended')
 
+def get_health():
+    return 200
 
 def init_scheduler():
     sched=BackgroundScheduler(daemon=True)

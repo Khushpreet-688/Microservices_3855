@@ -1,0 +1,71 @@
+openapi: 3.0.0
+servers: []
+info:
+  description: This API receives service health check requests
+  version: "1.0.0"
+  title: Employee Reporting API
+  contact:
+    email: ksidhu123@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: clocking_system
+    description: Operations available on clocking systems
+
+paths:
+  /status:
+    get:
+      summary: Gets the health status of services
+      operationId: app.get_health_status
+      description: Gets the health status of all the services
+      responses:
+        '200':
+          description: Successfully returned a response of updated statuses
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/HealthChecks'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                    message:
+                      type: string
+
+
+components:
+  schemas:
+    HealthChecks:
+      type: object
+      required:
+      - receiver
+      - storage
+      - processing
+      - audit
+      - last_updated
+      properties:
+        receiver:
+          type: string 
+          example: 'Down'
+        storage:
+          type: string
+          example: 'Down'
+        processing:
+          type: string
+          example: 'Down'
+        audit:
+          type: string
+          example: 'Down'
+        last_updated:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+
+
+      

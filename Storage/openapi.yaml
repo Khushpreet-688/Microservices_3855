@@ -133,6 +133,16 @@ paths:
                 properties:
                   message:
                     type: string
+  /health:
+    get:
+      tags:
+          - devices
+      summary: checks the health of the service
+      operationId: app.get_health
+      description: Returns 200 if the service is running
+      responses:
+        '200':
+          description: Service successfully running
 
 
 components:

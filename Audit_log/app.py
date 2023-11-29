@@ -95,6 +95,9 @@ def get_clock_out_reading(index):
         logger.error(f"Could not find clock out event at index {index}")
         return { "message": "Not Found" }, 404
 
+def get_health():
+    return 200
+
 app = connexion.FlaskApp(__name__, specification_dir='')
 if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":
     CORS(app.app)

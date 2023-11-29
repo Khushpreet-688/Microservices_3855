@@ -1,0 +1,114 @@
+2023-11-28 18:10:18,611 - basicLogger - INFO - App Conf File: app_conf.yml
+2023-11-28 18:10:18,611 - basicLogger - INFO - Log Conf File: log_conf.yml
+2023-11-28 18:10:18,660 - basicLogger - INFO - App Conf File: app_conf.yml
+2023-11-28 18:10:18,660 - basicLogger - INFO - Log Conf File: log_conf.yml
+2023-11-28 18:10:38,749 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:10:58,743 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:11:18,755 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:11:38,753 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:12:37,736 - basicLogger - INFO - App Conf File: app_conf.yml
+2023-11-28 18:12:37,737 - basicLogger - INFO - Log Conf File: log_conf.yml
+2023-11-28 18:12:37,767 - basicLogger - INFO - App Conf File: app_conf.yml
+2023-11-28 18:12:37,768 - basicLogger - INFO - Log Conf File: log_conf.yml
+2023-11-28 18:12:57,809 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:14:08,217 - basicLogger - INFO - App Conf File: app_conf.yml
+2023-11-28 18:14:08,218 - basicLogger - INFO - Log Conf File: log_conf.yml
+2023-11-28 18:14:08,246 - basicLogger - INFO - App Conf File: app_conf.yml
+2023-11-28 18:14:08,246 - basicLogger - INFO - Log Conf File: log_conf.yml
+2023-11-28 18:14:28,291 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:14:48,291 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:17:26,873 - basicLogger - INFO - App Conf File: app_conf.yml
+2023-11-28 18:17:26,874 - basicLogger - INFO - Log Conf File: log_conf.yml
+2023-11-28 18:17:26,933 - basicLogger - INFO - App Conf File: app_conf.yml
+2023-11-28 18:17:26,934 - basicLogger - INFO - Log Conf File: log_conf.yml
+2023-11-28 18:17:47,009 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:17:48,544 - basicLogger - INFO - Request has started
+2023-11-28 18:17:48,546 - basicLogger - INFO - Request has completed
+2023-11-28 18:18:07,011 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:18:27,010 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:18:47,007 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:19:10,241 - basicLogger - INFO - App Conf File: app_conf.yml
+2023-11-28 18:19:10,242 - basicLogger - INFO - Log Conf File: log_conf.yml
+2023-11-28 18:19:10,302 - basicLogger - INFO - App Conf File: app_conf.yml
+2023-11-28 18:19:10,303 - basicLogger - INFO - Log Conf File: log_conf.yml
+2023-11-28 18:19:30,390 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:19:30,620 - basicLogger - INFO - Status received from the receiver
+2023-11-28 18:19:30,622 - basicLogger - INFO - Status recorded
+2023-11-28 18:19:30,810 - basicLogger - INFO - Status received from the storage
+2023-11-28 18:19:30,813 - basicLogger - INFO - Status recorded
+2023-11-28 18:19:30,991 - basicLogger - INFO - Status received from the processing
+2023-11-28 18:19:30,992 - basicLogger - INFO - Status recorded
+2023-11-28 18:19:31,164 - basicLogger - INFO - Status received from the audit
+2023-11-28 18:19:31,166 - basicLogger - INFO - Status recorded
+2023-11-28 18:19:31,167 - basicLogger - DEBUG - Updated status values: {'receiver': 'Down', 'storage': 'Down', 'processing': 'Down', 'audit': 'Running', 'last_updated': '2023-11-28T18:19:30.393702Z'}
+2023-11-28 18:19:31,171 - basicLogger - INFO - Finished Periodic health check
+2023-11-28 18:19:50,387 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:19:50,623 - basicLogger - INFO - Status received from the receiver
+2023-11-28 18:19:50,624 - basicLogger - INFO - Status recorded
+2023-11-28 18:19:50,773 - basicLogger - INFO - Status received from the storage
+2023-11-28 18:19:50,774 - basicLogger - INFO - Status recorded
+2023-11-28 18:19:50,921 - basicLogger - INFO - Status received from the processing
+2023-11-28 18:19:50,921 - basicLogger - INFO - Status recorded
+2023-11-28 18:19:51,073 - basicLogger - INFO - Status received from the audit
+2023-11-28 18:19:51,074 - basicLogger - INFO - Status recorded
+2023-11-28 18:19:51,075 - basicLogger - DEBUG - Updated status values: {'receiver': 'Down', 'storage': 'Down', 'processing': 'Down', 'audit': 'Running', 'last_updated': '2023-11-28T18:19:50.388072Z'}
+2023-11-28 18:19:51,077 - basicLogger - INFO - Finished Periodic health check
+2023-11-28 18:20:10,377 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:20:10,598 - basicLogger - INFO - Status received from the receiver
+2023-11-28 18:20:10,599 - basicLogger - INFO - Status recorded
+2023-11-28 18:20:10,772 - basicLogger - INFO - Status received from the storage
+2023-11-28 18:20:10,774 - basicLogger - INFO - Status recorded
+2023-11-28 18:20:10,934 - basicLogger - INFO - Status received from the processing
+2023-11-28 18:20:10,936 - basicLogger - INFO - Status recorded
+2023-11-28 18:20:11,099 - basicLogger - INFO - Status received from the audit
+2023-11-28 18:20:11,101 - basicLogger - INFO - Status recorded
+2023-11-28 18:20:11,101 - basicLogger - DEBUG - Updated status values: {'receiver': 'Down', 'storage': 'Down', 'processing': 'Down', 'audit': 'Running', 'last_updated': '2023-11-28T18:20:10.379382Z'}
+2023-11-28 18:20:11,106 - basicLogger - INFO - Finished Periodic health check
+2023-11-28 18:20:30,383 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:20:30,607 - basicLogger - INFO - Status received from the receiver
+2023-11-28 18:20:30,608 - basicLogger - INFO - Status recorded
+2023-11-28 18:20:30,776 - basicLogger - INFO - Status received from the storage
+2023-11-28 18:20:30,778 - basicLogger - INFO - Status recorded
+2023-11-28 18:20:30,935 - basicLogger - INFO - Status received from the processing
+2023-11-28 18:20:30,937 - basicLogger - INFO - Status recorded
+2023-11-28 18:20:31,088 - basicLogger - INFO - Status received from the audit
+2023-11-28 18:20:31,090 - basicLogger - INFO - Status recorded
+2023-11-28 18:20:31,091 - basicLogger - DEBUG - Updated status values: {'receiver': 'Down', 'storage': 'Down', 'processing': 'Down', 'audit': 'Running', 'last_updated': '2023-11-28T18:20:30.384181Z'}
+2023-11-28 18:20:31,095 - basicLogger - INFO - Finished Periodic health check
+2023-11-28 18:20:50,393 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:20:50,620 - basicLogger - INFO - Status received from the receiver
+2023-11-28 18:20:50,621 - basicLogger - INFO - Status recorded
+2023-11-28 18:20:50,783 - basicLogger - INFO - Status received from the storage
+2023-11-28 18:20:50,784 - basicLogger - INFO - Status recorded
+2023-11-28 18:20:50,946 - basicLogger - INFO - Status received from the processing
+2023-11-28 18:20:50,947 - basicLogger - INFO - Status recorded
+2023-11-28 18:20:51,105 - basicLogger - INFO - Status received from the audit
+2023-11-28 18:20:51,106 - basicLogger - INFO - Status recorded
+2023-11-28 18:20:51,108 - basicLogger - DEBUG - Updated status values: {'receiver': 'Down', 'storage': 'Down', 'processing': 'Down', 'audit': 'Running', 'last_updated': '2023-11-28T18:20:50.401652Z'}
+2023-11-28 18:20:51,113 - basicLogger - INFO - Finished Periodic health check
+2023-11-28 18:28:38,215 - basicLogger - INFO - App Conf File: app_conf.yml
+2023-11-28 18:28:38,215 - basicLogger - INFO - Log Conf File: log_conf.yml
+2023-11-28 18:28:38,249 - basicLogger - INFO - App Conf File: app_conf.yml
+2023-11-28 18:28:38,250 - basicLogger - INFO - Log Conf File: log_conf.yml
+2023-11-28 18:28:58,293 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:28:58,545 - basicLogger - INFO - Status received from the receiver
+2023-11-28 18:28:58,547 - basicLogger - INFO - Status recorded
+2023-11-28 18:28:58,701 - basicLogger - INFO - Status received from the storage
+2023-11-28 18:28:58,702 - basicLogger - INFO - Status recorded
+2023-11-28 18:28:58,857 - basicLogger - INFO - Status received from the processing
+2023-11-28 18:28:58,858 - basicLogger - INFO - Status recorded
+2023-11-28 18:28:59,015 - basicLogger - INFO - Status received from the audit_log
+2023-11-28 18:28:59,016 - basicLogger - INFO - Status recorded
+2023-11-28 18:28:59,018 - basicLogger - DEBUG - Updated status values: {'receiver': 'Down', 'storage': 'Down', 'processing': 'Down', 'audit': 'Running', 'last_updated': '2023-11-28T18:28:58.295398Z', 'audit_log': 'Down'}
+2023-11-28 18:28:59,022 - basicLogger - INFO - Finished Periodic health check
+2023-11-28 18:29:18,302 - basicLogger - INFO - Start Periodic Health Check of services
+2023-11-28 18:29:18,517 - basicLogger - INFO - Status received from the receiver
+2023-11-28 18:29:18,519 - basicLogger - INFO - Status recorded
+2023-11-28 18:29:18,666 - basicLogger - INFO - Status received from the storage
+2023-11-28 18:29:18,667 - basicLogger - INFO - Status recorded
+2023-11-28 18:29:18,848 - basicLogger - INFO - Status received from the processing
+2023-11-28 18:29:18,849 - basicLogger - INFO - Status recorded
+2023-11-28 18:29:18,999 - basicLogger - INFO - Status received from the audit_log
+2023-11-28 18:29:19,000 - basicLogger - INFO - Status recorded
+2023-11-28 18:29:19,000 - basicLogger - DEBUG - Updated status values: {'receiver': 'Down', 'storage': 'Down', 'processing': 'Down', 'audit': 'Running', 'last_updated': '2023-11-28T18:29:18.303064Z', 'audit_log': 'Down'}
+2023-11-28 18:29:19,003 - basicLogger - INFO - Finished Periodic health check

@@ -121,6 +121,9 @@ def log_events(body, data_str):
         json_obj = json.dumps(que, indent=4)
         f.write(json_obj)
 
+def get_health():
+    return 200
+
 
 app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("openapi.yaml", base_path="/receiver", strict_validation=True, validate_responses=True)

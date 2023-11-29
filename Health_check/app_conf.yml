@@ -1,0 +1,7 @@
+version: 1
+datastore:
+  filename: data.json
+scheduler:
+  period_sec: 20
+eventstore:
+  url: http://kafka-acit3855.canadacentral.cloudapp.azure.com
