@@ -1,0 +1,2 @@
+@Library('ci_functions@master') _
+python_build('storage','storage-app', 8090)
