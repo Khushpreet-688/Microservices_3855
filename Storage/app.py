@@ -102,6 +102,7 @@ def get_clock_in_readings(start_timestamp, end_timestamp):
     Gets new clock in readings after the timestamp
     """
     session = DB_SESSION()
+    logger.info('testing')
     start_timestamp_datetime = datetime.datetime.strptime(start_timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
     end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
     readings = session.query(ClockIn).filter(and_(ClockIn.date_created >= start_timestamp_datetime, ClockIn.date_created < end_timestamp_datetime))
