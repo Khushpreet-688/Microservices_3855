@@ -42,11 +42,11 @@ def call(dockerRepoName, imageName, dirName) {
                 }
                 steps{
                     sshagent(credentials: ['ssh-kafka']){
-                        sh "ssh -o azureuser@20.63.112.52 '
+                        sh """ ssh -o azureuser@20.63.112.52 '
                         cd Microservices_3855/Deployment &&
                         docker pull khushpreet688/${dockerRepoName}:${imageName} &&
                         docker-compose up -d'
-                        "
+                        """
 
                     }
                 }
