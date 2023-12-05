@@ -8,7 +8,6 @@ import logging, logging.config
 import uuid
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask_cors import CORS, cross_origin
-# Your functions here
 
 import os
 if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
@@ -35,6 +34,9 @@ logger.info("App Conf File: %s" % app_conf_file)
 logger.info("Log Conf File: %s" % log_conf_file)
 
 def get_stats():
+    """
+    Get endpoint function. Retrieves stats entries for the JSON file.
+    """
     logger.info('Request has started')
     try:
         with open(app_config['datastore']['filename'], 'r') as f:
@@ -44,10 +46,12 @@ def get_stats():
     except FileNotFoundError:
         logger.error('Statistics do not exist')
         return 'Statistics do not exist', 404
-    
     return stats, 200
 
 def populate_stats():
+    """
+    Function run periodically to calculate stats and update the JSON file
+    """
     logger.info('Start Periodic Processing')
     current_datetime = datetime.datetime.now()
     try:
@@ -65,7 +69,6 @@ def populate_stats():
         }
         with open(app_config['datastore']['filename'], 'w') as f:
             json.dump(stats, f, indent=4)
-        
 
     current_timestamp = current_datetime.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
     get_response_clock_in = requests.get(f"{app_config['eventstore']['url']}/reporting/clock-in", params={'start_timestamp': stats['last_updated'], 'end_timestamp': current_timestamp})
@@ -89,18 +92,12 @@ def populate_stats():
             late_arrivals.append(i['late_arrival'])
         stats['max_late_arrival'] = max(late_arrivals)
         stats['last_updated'] = current_datetime.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-
-        
         logger.debug(f'Updated statistics values: {stats}')
-
     else:
         logger.error("Failed to get any events from storage")
-    
     #write them to json
     with open(app_config['datastore']['filename'], 'w') as f:
         json.dump(stats, f, indent=4)
-    
-
     logger.info('Period processing has ended')
 
 def get_health():
