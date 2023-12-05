@@ -1,2 +1,2 @@
-@Library('ci_functions@master') _
+@Library('ci_functions@main') _
 python_build('audit_log','audit-log-app', 8110)
