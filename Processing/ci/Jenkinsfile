@@ -1,2 +1,2 @@
-library 'my_ci_funcs'
+// library 'my_ci_funcs'
 python_build('processing','processing-app', 8100)
