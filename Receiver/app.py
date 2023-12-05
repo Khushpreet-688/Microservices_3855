@@ -1,8 +1,8 @@
 import json
 import datetime
-import requests
 import yaml
-import logging, logging.config
+import logging
+import logging.config
 import uuid
 from pykafka import KafkaClient
 import time

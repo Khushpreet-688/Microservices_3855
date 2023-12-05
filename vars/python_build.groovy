@@ -26,7 +26,7 @@ def call(dockerRepoName, imageName, portNum, dirName) {
 
             stage('Package') {
                 when {
-                    expression { env.GIT_BRANCH == 'origin/main' }
+                    expression { env.GIT_BRANCH == 'main' }
                 }
                 steps {
                     withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {
