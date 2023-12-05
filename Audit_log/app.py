@@ -44,6 +44,7 @@ def get_clock_in_reading(index):
     consumer = topic.get_simple_consumer(reset_offset_on_start=True,
     consumer_timeout_ms=1000)
     logger.info(f"Retrieving Clock in reading at index {index}")
+    print('hi')
     i = 0
     try:
         for msg in consumer:
