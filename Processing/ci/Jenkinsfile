@@ -1,2 +1,2 @@
-@Library('ci_functions@main') _
+@Library('ci_functions') _
 python_build('processing','processing-app', 8100)
