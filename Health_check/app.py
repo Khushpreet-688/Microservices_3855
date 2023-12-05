@@ -49,7 +49,7 @@ def check_health():
         with open(app_config['datastore']['filename'], 'r') as f:
             health = json.load(f)
     except FileNotFoundError:
-        #use the default values for the stats 
+        #set the default values for statuses to be down
         health = {
             'receiver': 'Down',
             'storage': 'Down',
@@ -60,7 +60,7 @@ def check_health():
         }
         with open(app_config['datastore']['filename'], 'w') as f:
             json.dump(health, f, indent=4)
-    # update the service with current date and time
+    
     services = ['receiver', 'storage', 'processing', 'audit_log']
     for service in services:
         res = requests.get(f"{app_config['eventstore']['url']}/{service}/health", timeout=4)
@@ -71,6 +71,7 @@ def check_health():
             health[service] = 'Down'
         logger.info(f'Status recorded')
     
+    # update the service with current date and time
     health['last_updated'] = current_datetime.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
     logger.debug(f'Updated status values: {health}')
     #write them to json
