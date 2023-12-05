@@ -1,2 +1,2 @@
 library 'Microservices_3855'
-python_build('storage','storage-app', 8090, 'Storage')
+python_build('storage','storage', 'Storage')

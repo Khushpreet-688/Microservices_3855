@@ -1,4 +1,4 @@
-def call(dockerRepoName, imageName, portNum, dirName) {
+def call(dockerRepoName, imageName, dirName) {
     pipeline {
         agent any
         parameters {
@@ -36,24 +36,21 @@ def call(dockerRepoName, imageName, portNum, dirName) {
                 }
             }
 
-
-            // stage('Package2') {
-            //     steps{
-            //         sh 'zip app.zip *.py'
-            //         archiveArtifacts artifacts: 'app.zip'
-            //     }
-            // }
-
-            stage('Deliver'){
+            stage('Deploy'){
                 when {
                     expression { params.DEPLOY }
                 }
-                steps {
-                    sh "docker stop ${dockerRepoName} || true"
-                    sh "docker rm ${dockerRepoName} || true"
-                    // sh "docker run -d –p ${portNum}:${portNum} --name ${dockerRepoName} ${dockerRepoName}:latest"
-                    sh "docker run -d -p ${portNum}:${portNum} --name ${dockerRepoName} ${dockerRepoName}:latest"
+                steps{
+                    sshagent(credentials: ['ssh-kafka']){
+                        sh "ssh -o azureuser@20.63.112.52 
+                        'cd Microservices_3855/Deployment &&
+                        docker pull khushpreet688/${dockerRepoName}:${imageName} &&
+                        docker-compose up -d
+                        '"
+
+                    }
                 }
+                
             }
         }
     }

@@ -1,2 +1,2 @@
 library 'Microservices_3855'
-python_build('audit_log','audit-log-app', 8110, 'Audit_log')
+python_build('audit_log','audit_log', 'Audit_log')
