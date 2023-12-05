@@ -1,4 +1,4 @@
-def call(dockerRepoName, imageName, portNum) {
+def call(dockerRepoName, imageName, portNum, dirName) {
     pipeline {
         agent any
         parameters {
@@ -7,8 +7,8 @@ def call(dockerRepoName, imageName, portNum) {
         stages {
             stage('Build') {
                 steps {
-                    sh 'pip install -r requirements.txt --break-system-packages'
-                    sh 'pip install --upgrade flask --break-system-packages' 
+                    sh "pip install -r ${dirName}/requirements.txt --break-system-packages"
+                    sh "pip install --upgrade flask --break-system-packages" 
                 }
             }
 
@@ -26,7 +26,7 @@ def call(dockerRepoName, imageName, portNum) {
 
             stage('Package') {
                 when {
-                    expression { env.GIT_BRANCH == 'origin/master' }
+                    expression { env.GIT_BRANCH == 'origin/main' }
                 }
                 steps {
                     withCredentials([string(credentialsId: 'DockerHub', variable: 'TOKEN')]) {

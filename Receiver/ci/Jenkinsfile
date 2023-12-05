@@ -1,2 +1,2 @@
 library 'Microservices_3855'
-python_build('receiver','receiver-app', 8080)
+python_build('receiver','receiver-app', 8080, 'Receiver')
