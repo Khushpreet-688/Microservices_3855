@@ -1,5 +1,3 @@
-import connexion
-from connexion import NoContent
 import json
 import datetime
 import requests
@@ -8,6 +6,8 @@ import logging, logging.config
 import uuid
 from pykafka import KafkaClient
 import time
+import connexion
+from connexion import NoContent
 # Your functions here
 
 MAX_EVENTS = 10
@@ -52,16 +52,15 @@ while retry_count < max_retries:
         time.sleep(sleep_time)
         retry_count += 1
 
-
-
 def clock_in(body):
+    """
+    Receives clock-in post request and produces a message in Kafka producer stream.
+    """
     trace_id = str(uuid.uuid4())
     body['trace_id'] = trace_id
     event = "clock in"
     logger.info(f"Received event {event} request with a trace id of {trace_id}")
-
     headers = { "content-type": "application/json"}
-
     # response = requests.post(app_config['eventstore1']['url'], json=body, headers=headers)
     # client = KafkaClient(hosts=f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}')
     # topic = client.topics[str.encode(app_config["events"]["topic"])]
@@ -71,21 +70,18 @@ def clock_in(body):
             "payload": body }
     msg_str = json.dumps(msg)
     producer.produce(msg_str.encode('utf-8'))
-
-    # if response.status_code == 201:
-    #     print(response)
-
     logger.info(f"Returned event {event} response {trace_id} with status 201")
     return NoContent, 201
 
 def clock_out(body):
+    """
+    Receives clock-out post request and produces a message in Kafka producer stream.
+    """
     trace_id = str(uuid.uuid4())
     body['trace_id'] = trace_id
     event = "clock out"
     logger.info(f"Received event {event} request with a trace id of {trace_id}")
-
     headers = { "content-type": "application/json"}
-    
     # response = requests.post(app_config['eventstore2']['url'], json=body, headers=headers)
     # if response.status_code == 201:
     #     print(response)
@@ -97,17 +93,14 @@ def clock_out(body):
             "payload": body }
     msg_str = json.dumps(msg)
     producer.produce(msg_str.encode('utf-8'))
-
     logger.info(f"Returned event {event} response {trace_id} with status 201")
     return NoContent, 201
-
 
 def log_events(body, data_str):
     with open(EVENT_FILE, 'r') as f:
         que = json.loads(f.read())
     current_datetime = datetime.datetime.now()
     curr_datetime_str = current_datetime.strftime(f"%Y-%m-%d %H:%M:%S")
-    
     data_obj = {
         "received_timestamp": curr_datetime_str,
         "request_data": data_str
@@ -115,7 +108,6 @@ def log_events(body, data_str):
     que.insert(0, data_obj)
     if len(que) > MAX_EVENTS:
         que.pop()
-    
     #can also use que[:10] to just load top ten entries to the file
     with open(EVENT_FILE, 'w') as f:
         json_obj = json.dumps(que, indent=4)
@@ -123,7 +115,6 @@ def log_events(body, data_str):
 
 def get_health():
     return 200
-
 
 app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("openapi.yaml", base_path="/receiver", strict_validation=True, validate_responses=True)
