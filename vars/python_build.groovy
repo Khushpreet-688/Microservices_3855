@@ -17,12 +17,6 @@ def call(dockerRepoName, imageName, dirName) {
                 }
             }
 
-            // stage('Security'){
-            //     steps{
-            //         sh 'nmap '
-            //     }
-            // }
-
             stage('Package') {
                 when {
                     expression { env.GIT_BRANCH == 'main' }
@@ -33,6 +27,12 @@ def call(dockerRepoName, imageName, dirName) {
                         sh "docker build -t ${dockerRepoName}:latest --tag khushpreet688/${dockerRepoName}:${imageName} ./${dirName}"
                         sh "docker push khushpreet688/${dockerRepoName}:${imageName}"
                     }
+                }
+            }
+
+            stage('Security') {
+                steps {
+                    sh "docker scout cves khushpreet688/${dockerRepoName}:${imageName}"
                 }
             }
 
