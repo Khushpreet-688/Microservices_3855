@@ -11,11 +11,21 @@ def call(dockerRepoName, imageName, dirName) {
                 }
             }
 
+            stage('Security') {
+                steps {
+                    // sh "docker run -d ${dockerRepoName}:latest"
+                    // sh "nmap --script vulners --script-args mincvss=7.5 -sV -Pn -p 8080 127.0.0.1 | grep '*EXPLOIT'"
+                    sh "pip-audit --requirement ${dirName}/requirements.txt"
+
+                }
+            }
+
             stage('Lint'){
                 steps{
                     sh "pylint --fail-under=5.0 ${dirName}/*.py"
                 }
             }
+
 
             stage('Package') {
                 when {
@@ -30,11 +40,6 @@ def call(dockerRepoName, imageName, dirName) {
                 }
             }
 
-            stage('Security') {
-                steps {
-                    sh "docker scout cves khushpreet688/${dockerRepoName}:${imageName}"
-                }
-            }
 
             stage('Deploy'){
                 when {
